@@ -17,11 +17,8 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
+        run: docker login -u ${{ secrets.mariabakhareva }} -p ${{ secrets.mariyka!16 }}
+        
       - name: Configure Git
         run: |
           git config --global user.email "mary.in.world@mail.ru"
@@ -31,11 +28,7 @@ jobs:
 
       - name: Build Docker image
         id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: false
-          tags: my-docker-image:${{ github.sha }}
+        run: docker build -t my-docker-image:${{ github.sha }} .
 
       - name: Extract image information
         run: echo "ghcr.io/${{ github.repository }}/my-custom-image:latest" > docker_image.txt
