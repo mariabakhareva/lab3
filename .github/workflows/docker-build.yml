@@ -17,14 +17,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.mariabakhareva }} -p ${{ secrets.mariyka!16 }}
-        
-      - name: Configure Git
-        run: |
-          git config --global user.email "mary.in.world@mail.ru"
-          git config --global user.name "mariabakhareva"
-          echo "https://${{ secrets.GH_PAT }}@github.com/${{ github.repository }}" > remote_url.txt
-          git remote set-url origin "$(cat remote_url.txt)"
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
         id: docker_build
